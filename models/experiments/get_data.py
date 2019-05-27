@@ -1,6 +1,6 @@
 # encoding: utf-8
 from ..dataset.sheets import Sheets
-
+import pickle
 
 
 class Data(object):
@@ -38,12 +38,12 @@ class Data(object):
           if value[0] == 'I\\xe2\\x80\\x99m':
             sentence.append(('I\'m', 0))
           else:
-            sentence.append((value[0], 0))
+            sentence.append((value[0].encode('utf-8').strip(), 0))
       else:
         if value[0] == 'I\\xe2\\x80\\x99m':
             sentence.append(('I\'m', 0))
         else:
-          sentence.append((value[0], 0))
+          sentence.append((value[0].encode('utf-8').strip(), value[1]))
     return sentences
 
   def get_sentences(self):
@@ -51,3 +51,7 @@ class Data(object):
 
   def get_data_metrics(self):
     print('Total Number of Reviews: {0}'.format(len(self.sentences)))
+
+  def save_data(self, file_path):
+    with open(file_path, 'wb') as f:
+      pickle.dump(self.sentences, f)

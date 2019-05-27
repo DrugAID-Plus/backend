@@ -106,3 +106,5 @@ venv.bak/
 *.csv
 *.json
 *.pickle
+*.p
+bert-as-a-service
